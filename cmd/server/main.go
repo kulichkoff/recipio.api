@@ -6,7 +6,9 @@ import (
 	"github.com/labstack/echo/v4"
 	emiddleware "github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
+	"recip.io/api/internal/common"
 	"recip.io/api/internal/db"
+	"recip.io/api/internal/routes"
 )
 
 func main() {
@@ -14,6 +16,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer logger.Sync()
+	common.SetLogger(logger)
 	logger.Info("Logger initialised")
 
 	if err := db.ConnectPostgres(logger); err != nil {
@@ -40,6 +44,8 @@ func main() {
 	e.Use(emiddleware.Recover())
 	e.Use(emiddleware.Gzip())
 	e.Use(emiddleware.CORSWithConfig(emiddleware.DefaultCORSConfig))
+
+	routes.ActivateRoutes(e)
 
 	// TODO add port config
 	port := 8080

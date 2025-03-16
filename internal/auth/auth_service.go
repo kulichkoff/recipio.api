@@ -5,6 +5,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"go.uber.org/zap"
+	"recip.io/api/internal/common"
 )
 
 type AuthService interface {
@@ -15,7 +16,8 @@ type service struct {
 	logger *zap.Logger
 }
 
-func NewService(logger *zap.Logger) AuthService {
+func NewService() AuthService {
+	logger := common.GetLogger()
 	return &service{
 		logger: logger,
 	}
