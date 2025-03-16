@@ -3,6 +3,8 @@ module recip.io/api
 go 1.24.0
 
 require (
+	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
+	github.com/labstack/echo-jwt/v4 v4.3.0 // indirect
 	github.com/labstack/echo/v4 v4.13.3 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/lib/pq v1.10.9 // indirect
